@@ -3,7 +3,7 @@
 	"package": "com.kerl0s.mobhud.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"com.kerlos.mobhud.mixin.MobHUDMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

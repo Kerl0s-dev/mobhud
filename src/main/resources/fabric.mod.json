@@ -2,21 +2,21 @@
 	"schemaVersion": 1,
 	"id": "mobhud",
 	"version": "${version}",
-	"name": "MobHUD",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Mob HUD",
+	"description": "Mob HUD adds a simple health bar",
 	"authors": [
-		"Me!"
+		"Kerl0s"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://kerl0s-dev.github.io/",
+		"sources": "https://github.com/Kerl0s-dev/mobhud"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/mobhud/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"com.kerl0s.mobhud.MobHUD"
+		"client": [
+			"com.kerlos.mobhud.MobHUD"
 		]
 	},
 	"mixins": [

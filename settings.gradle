@@ -1,8 +1,16 @@
 pluginManagement {
 	repositories {
 		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
+			name = "Fabric"
+			url = "https://maven.fabricmc.net/"
+		}
+		maven {
+			name = "ModMenu"
+			url = "https://maven.terraformersmc.com/"
+		}
+		maven {
+			name = "Cloth Config"
+			url = "https://maven.shedaniel.me/"
 		}
 		mavenCentral()
 		gradlePluginPortal()
