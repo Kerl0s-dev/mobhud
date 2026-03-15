@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "com.kerl0s.mobhud.mixin",
+	"package": "com.kerlos.mobhud.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"com.kerlos.mobhud.mixin.MobHUDMixin"
+		"MobHUDMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

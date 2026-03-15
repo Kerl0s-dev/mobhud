@@ -54,6 +54,7 @@ public class MobHudRenderer {
                 0x90000000
         );
 
+        // changement de couleur de la barre de vie dynamique
         int color;
 
         if (percent > 0.6f)
