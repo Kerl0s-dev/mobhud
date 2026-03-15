@@ -4,85 +4,76 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
 
 public class MobHudRenderer {
 
-    public static void render(DrawContext drawContext) {
+    private static final int BAR_WIDTH = 120;
+    private static final int BAR_HEIGHT = 12;
+    private static final int Y = 20;
+
+    public static void render(DrawContext ctx) {
 
         MinecraftClient mc = MinecraftClient.getInstance();
 
-        if (mc.player == null || mc.crosshairTarget == null) return;
-
-        HitResult hit = mc.crosshairTarget;
-
-        if (!(hit instanceof EntityHitResult entityHit)) return;
-        if (!(entityHit.getEntity() instanceof LivingEntity living)) return;
+        if (mc.player == null || !(mc.crosshairTarget instanceof EntityHitResult hit)) return;
+        if (!(hit.getEntity() instanceof LivingEntity living)) return;
 
         float health = living.getHealth();
         float maxHealth = living.getMaxHealth();
         float percent = health / maxHealth;
 
-        int screenWidth = mc.getWindow().getScaledWidth();
+        int centerX = mc.getWindow().getScaledWidth() / 2;
+        int barX = centerX - BAR_WIDTH / 2;
 
-        int centerX = screenWidth / 2;
-        int y = 20;
+        int filled = (int) (BAR_WIDTH * percent);
 
-        int barWidth = 120;
-        int barHeight = 12;
-
-        int filled = (int)(barWidth * percent);
-
-        // nom du mob
         String name = living.getName().getString();
+        String hp = (int)health + " / " + (int) maxHealth;
 
-        drawContext.drawText(
-                mc.textRenderer,
+        var text = mc.textRenderer;
+
+        // Nom du mob
+        ctx.drawText(
+                text,
                 name,
-                centerX - mc.textRenderer.getWidth(name) / 2,
-                y - 12,
+                centerX - text.getWidth(name) / 2,
+                Y - 12,
                 0xFFFFFFFF,
                 true
         );
 
-        // fond
-        drawContext.fill(
-                centerX - barWidth / 2,
-                y,
-                centerX + barWidth / 2,
-                y + barHeight,
+        // Fond de la barre
+        ctx.fill(
+                barX,
+                Y,
+                barX + BAR_WIDTH,
+                Y + BAR_HEIGHT,
                 0x90000000
         );
 
-        // changement de couleur de la barre de vie dynamique
-        int color;
-
-        if (percent > 0.6f)
-            color = 0xFF00FF00;
-        else if (percent > 0.3f)
-            color = 0xFFFFAA00;
-        else
-            color = 0xFFFF0000;
-
-        // barre de vie
-        drawContext.fill(
-                centerX - barWidth / 2,
-                y,
-                centerX - barWidth / 2 + filled,
-                y + barHeight,
-                color
+        // Barre de vie
+        ctx.fill(
+                barX,
+                Y,
+                barX + filled,
+                Y + BAR_HEIGHT,
+                getHealthColor(percent)
         );
 
-        String hp = (int)health + " / " + (int)maxHealth;
-
-        //points de vie
-        drawContext.drawText(
-                mc.textRenderer,
+        // Texte HP
+        ctx.drawText(
+                text,
                 hp,
-                centerX - mc.textRenderer.getWidth(hp) / 2,
-                y + 2,
+                centerX - text.getWidth(hp) / 2,
+                Y + 2,
                 0xFFFFFFFF,
                 true
         );
+    }
+
+    private static int getHealthColor(float percent) {
+        if (percent > 0.6f) return 0xFF00FF00;
+        if (percent > 0.3f) return 0xFFFFAA00;
+        return 0xFFFF0000;
     }
 }
